@@ -15,8 +15,7 @@ const userSchema=new Schema({
 		required:true,
 		unique:true,
 		lowecase: true,
-		trim:true
-		
+		trim:true	
 	},
 	password:{
 		type:String,
@@ -26,10 +25,10 @@ const userSchema=new Schema({
 		type:String,
 		enum:["admin","employee"],
 		required:true,
+	}, 
+	token:{
+		type:String
 	},
-	profile:{
-		type:String,
-	}
 },
 	{
 		timestamps:true
@@ -48,4 +47,4 @@ userSchema.methods.isPasswordCorrect=async function(password){
   return result;
 }
 
-export const User=mongoose.model("User",userSchema);
+export const User = mongoose.model("User",userSchema);

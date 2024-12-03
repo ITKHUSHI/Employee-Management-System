@@ -1,6 +1,11 @@
 import mongoose,{Schema} from "mongoose";
 
 const employeeSchema = new Schema({
+	user: {
+		 type: mongoose.Schema.Types.ObjectId, 
+		 ref: 'User',
+		required: true 
+	},
 	name:{
 		type:String,
 		required:true,
@@ -37,11 +42,20 @@ const employeeSchema = new Schema({
 		required:true,
 
 	},
+	
 	profileImg:{
 		type:String,
 		default:"https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
 		
-	}
+	},
+	password:{
+		type:String,
+		required:true,
+	},
+	token:{
+		type:String
+	},
+	
 
 },{
 	timeseries:true,

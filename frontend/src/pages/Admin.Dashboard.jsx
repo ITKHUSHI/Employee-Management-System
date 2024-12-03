@@ -1,20 +1,19 @@
 import React, { useState } from 'react'
-import Navbar from "../component/Navbar"
-import { Outlet } from 'react-router-dom'
 function AdminDashboard() {
-
-  
-
   return (
 	<>
-   <Navbar/>
-  <Outlet>
-  </Outlet>
+ <div>
+  <div className='flex items-center justify-center flex-col'>
+    <h2 className='text-2xl font-bold m-2 underline text-blue-400'  >Admin Dashboard</h2>
+    <br />
+    <p> welcome to admin dashboard</p>
+  </div>  
+ </div>
    
  
 
   </>
   )
 }
-
+ 
 export default AdminDashboard

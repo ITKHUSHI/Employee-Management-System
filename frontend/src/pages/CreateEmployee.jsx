@@ -14,7 +14,8 @@ function CreateEmployee() {
         designation: "",
         gender: "",
         course: [],
-        profileImg: null
+        profileImg: null,
+        password:""
     });
 
     const handleInputChange = (e) => {
@@ -49,9 +50,10 @@ function CreateEmployee() {
             const res = await axios.post("/api/v1/user/create-employee", {
                 ...inputs // Use spread operator to include all input fields
             });
-            navigate("employee-list")
+         
             console.log(res.data);
             toast.success("Successfully created employee");
+            navigate("/employee-dashboard")
 
         } catch (error) {
             console.log(error, "Error while creating user");
@@ -75,7 +77,8 @@ function CreateEmployee() {
             designation: "",
             gender: "",
             course: [],
-            profileImg: null
+            profileImg: null,
+            password:""
         });
     };
 
@@ -203,6 +206,18 @@ function CreateEmployee() {
                                 name="profileImg"
                                 id="profileImg" // Corrected from 'profileIng' to 'profileImg'
                                 onChange={handleFileChange}
+                            />
+                            <br/>
+                             <label htmlFor="name" className="p-2 text-bold text-white">password</label>
+                            <input
+                                className="text-sm w-full px-4 py-2 border m-2 border-solid border-gray-300 rounded-full"
+                                type="password"
+                                name="password"
+                                id="password"
+                                value={inputs.password}
+                                onChange={handleInputChange}
+                                placeholder="password"
+                                required
                             />
 
                             <div className="flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">

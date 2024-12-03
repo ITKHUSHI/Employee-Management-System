@@ -27,7 +27,7 @@ function EmployeeList() {
 
   if (error) {
     return <div className="text-center text-red-500">{error}</div>;
-  }
+  } 
 
   return (
     <div className="container mx-auto p-4">
@@ -51,7 +51,7 @@ function EmployeeList() {
           </thead>
           <tbody>
             {employees.map((employee,index) =>  (
-             
+              
               <tr key={employee._id} >
 				 <td className="border px-4 py-2">{index + 1}</td>
 				     <td className="border px-4 py-2">
