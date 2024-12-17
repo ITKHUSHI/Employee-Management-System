@@ -7,6 +7,7 @@ import EmployeeList from "./pages/EmployeeList.jsx"
 import RegisterUser from "./pages/RegisterUser.jsx"
 import Protectedroute from "./component/Protectedroute.jsx"
 import Navbar from "./component/Navbar.jsx"
+import UpdateEmployee from "./pages/UpdateEmployee.jsx"
 function App() {
   const isLogging=window.localStorage.getItem("loggedIn");
   const userType=window.localStorage.getItem("userType");
@@ -36,6 +37,8 @@ function App() {
               userType!="admin"?(
                 <>
             <Route path="employee-dashboard" element={<EmployeeDashBoard />} />
+            <Route path="employee-dashboard/update-employee/:id" element={<UpdateEmployee />} />
+
             <Route path="/" element={<EmployeeDashBoard />} />
 
 
@@ -45,6 +48,7 @@ function App() {
             <Route path="admin-dashboard" element={<AdminDashboard />}/>
            <Route path="create-employee" element={<CreateEmployee />} />
             <Route path="employee-list" element={<EmployeeList/>}/>
+            <Route path="employee-list/update-employee/:id" element={<UpdateEmployee />} />
             <Route path="/" element={<AdminDashboard />} />
 
                 </>

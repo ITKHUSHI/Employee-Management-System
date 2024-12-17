@@ -1,5 +1,5 @@
 import React ,{ useState} from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import axios from "axios"
 import  Spline  from '@splinetool/react-spline';
 import toast from "react-hot-toast"
@@ -15,22 +15,23 @@ function Login() {
 			const res= await axios.post("/api/v1/user/login",{email,password});
 			setIsloggin(true);
 			console.log(res);
-			window.localStorage.setItem("token",res.data.token);
-			console.log(res.data.user);
-			window.localStorage.setItem("user", res.data.user);
+			const userData=res.data.user
+			const employeeData=res.data.employee;
+			window.localStorage.setItem('user',JSON.stringify(userData));
 			window.localStorage.setItem("loggedIn",true);
 			window.localStorage.setItem("userType",res.data.user.role);
-			window.localStorage.setItem("token",res.data.user.token)
+			window.localStorage.setItem("token",res.data.token)
+			window.localStorage.setItem("employee",JSON.stringify(employeeData));
 
 			if(res.data.user.role==="admin"){
-                 navigate("/admin-dashboard")
+                 navigate("admin-dashboard")
 			}else if (res.data.user.role === "employee") {
 				if (!res.data.isRegisteredEmployee) {
 					// Redirect to employee registration if not registered
-					navigate("/create-employee");
+					navigate("create-employee");
 				} else {
 					// Redirect to employee dashboard if registered
-					navigate("/employee-dashboard");
+					navigate("employee-dashboard");
 				}
 			}
 			toast.success("successfully Login user")

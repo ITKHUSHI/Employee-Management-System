@@ -13,7 +13,6 @@ const RegisterUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage('');
-
         try {
             const res = await axios.post('/api/v1/user/registerUser', {
 				email,
@@ -29,15 +28,16 @@ const RegisterUser = () => {
             setPassword('');
             setRole(res.data.role);
             window.localStorage.setItem("token",res.data.token);
-			console.log(res.data.user);
-			window.localStorage.setItem("user", res.data.user);
+            const data=res.data.user;
+			console.log(data);
+			window.localStorage.setItem(...Object.keys(data),...Object.values(data));
 			window.localStorage.setItem("loggedIn",true);
 			window.localStorage.setItem("userType",res.data.user.role);
 
             if(res.data.role=="employee"){
-                navigate("/create-employee")
+                navigate("create-employee")
             }else if(res.data.role=="admin"){
-                navigate("/admin-dashboard")
+                navigate("admin-dashboard")
             }
         } catch (error) {
             if (error.response) {

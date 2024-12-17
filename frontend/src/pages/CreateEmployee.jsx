@@ -48,12 +48,14 @@ function CreateEmployee() {
         try {
             setIslodding(true);
             const res = await axios.post("/api/v1/user/create-employee", {
-                ...inputs // Use spread operator to include all input fields
+                ...inputs  // Use spread operator to include all input fields
             });
          
             console.log(res.data);
+            const data=JSON.stringify(res.data);
+              window.localStorage.setItem("employee",data);
             toast.success("Successfully created employee");
-            navigate("/employee-dashboard")
+            navigate("employee-dashboard")
 
         } catch (error) {
             console.log(error, "Error while creating user");
@@ -234,3 +236,4 @@ function CreateEmployee() {
 }
 
 export default CreateEmployee;
+ 

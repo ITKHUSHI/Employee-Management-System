@@ -50,7 +50,7 @@ const registerUser=( async (req, res)=>{
 const login = (async (req,res)=>{
 	try {
 		const {email, password}=req.body;
-     console.log(password)
+    //  console.log(password)
 	const user=(await User.findOne({email:email}) || await Employee.findOne({email}))
 	if(!user){
 		// console.log("user does not exist");
@@ -59,28 +59,30 @@ const login = (async (req,res)=>{
 		.status(400)
 		.json( {success:false, message:"User not exist "})
 	}
-
+        // console.log(user.password);
 		const isPasswordValid = await bcrypt.compare(password, user.password);
 		if(!isPasswordValid){
 			console.log("Ivalid user credentials");
 		}
 		   // Check if the user is an employee and registered in Employee model
-		   console.log(user.role);
+		//    console.log(user.role);
 		   let isRegisteredEmployee = false;
+		   let employeeData=null;
 		   if (user.role === "employee") {
 			   const employee = await Employee.findOne({ user: user._id });
 			   if (employee) {
 				   isRegisteredEmployee = true;
+                   employeeData=employee;
 			   } 
 		   }
-		const token = jwt.sign
+		const token = jwt.sign 
 		({
 			_id:user._id ,
 			email:user.email,
 			username:user.username,
 			role:user.role
 
-		},
+		}, 
 		   process.env.ACCESS_TOKEN_SECRET,
 			 {
 				expiresIn: process.env.ACCESS_TOKEN_EXPIRY
@@ -100,6 +102,7 @@ const login = (async (req,res)=>{
 			success:true,
 			message:"User logged in Successfully",
 			 user:loggedInUser, 
+			 employee:employeeData,
 			 isRegisteredEmployee,
 			 token
 			});
@@ -116,8 +119,6 @@ const login = (async (req,res)=>{
 	}
 })
 
-
- 
 const logoutUser = (async (req, res) => {
 try{
 	
@@ -158,7 +159,6 @@ try{
 	return res.status(500).json(err.message);
 }});
   
-
 
 export  {
 	registerUser,

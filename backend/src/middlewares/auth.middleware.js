@@ -26,4 +26,4 @@ const authenticate = (req, res, next) => {
 export{
     checkRole,
     authenticate
-}
+} 

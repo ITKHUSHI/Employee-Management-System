@@ -6,28 +6,24 @@ import  { useNavigate}  from "react-router-dom";
 
 const LogoutButton = () => {
 	const navigate=useNavigate()
-  const user= window.localStorage.getItem("loggedIn");
-  
-  let userId;
-
-  if(user){
-     userId=user._id;
-
-  }
+  const token= window.localStorage.getItem("token"); 
   const handleLogout = async () => {
     try {
      
      const res= await axios.post('/api/v1/user/logout',{
+         "Authorization": `Bearer ${token}`,
          "Content-Type": "application/json",
-         Authorization: `Bearer ${user.token}`
 
       }); 
       console.log(res) 
       window.localStorage.removeItem('loggedIn'); // Example: clear user data from localStorage
       window.localStorage.removeItem("userType");
-        navigate('/login');
+      window.localStorage.removeItem("user");
+      window.localStorage.removeItem("employee");
+        navigate('login');
       // Redirect to login page after logout
     } catch (error) {
+      if(error.name=="")
       console.error('Error logging out:', error);
     }
   };
