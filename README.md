@@ -47,13 +47,22 @@ const checkRole = (role) => {
 };
 API Endpoints
 Method	Endpoint	Description	Access Level
-POST	/api/auth/login	Login and receive a JWT.	Public
-POST	/api/auth/registerUser	Register a new user.	Admin Only
-POST /api/auth/createEmployee (user create only his employee account if he does not have else only admin create one than more employees)![Screenshot 2024-12-03 231046](https://github.com/user-attachments/assets/f62f2174-c9cb-461f-bdad-5f7e8299e14f)
-![Screenshot 2024-12-03 231025](https://github.com/user-attachments/assets/f177d565-8d7e-4b19-a121-48f9627d66bd)
+router.route("/registerUser").post(upload.none(),registerUser);
+router.route("/login").post(upload.none(), login);
+router.route('/create-employee:id').post(upload.single("profileImg"),authenticate,registerEmployee);
+router.route("/employees").get(authenticate,checkRole("admin"),getAllEmployees);
+router.route("/logout").post(authenticate,logoutUser);
+router.route("/delete:id").delete(authenticate,deleteEmployee);
+router.route('/update-details:id').patch(upload.single("profileImg"),authenticate,updateEmployee);
+router.route("/employee:employeeId").get(authenticate,getEmployee);
 
-GET	/api/employees	Fetch all employees.	Admin Only
-POST	/api/employees	Add a new employee.	Admin Only
+ (user create only his employee account if he does not have else only admin create one than more employees)
+
+![Screenshot 2024-12-03 231046](https://github.com/user-attachments/assets/d6a4746c-9eb5-4e9c-9135-80ee0f9e889a)
+![Screenshot 2024-12-17 144127](https://github.com/user-attachments/assets/35c8e834-622a-418a-8527-ed06ccfc50d2)
+![Screenshot 2024-12-17 143959](https://github.com/user-attachments/assets/c371d84b-cc0c-4cd2-9346-9cb58e6bad3d)
+
+
 
 Frontend Highlights
 While the frontend provides a clean and responsive interface, it primarily serves as a consumer of the backend APIs.
@@ -71,7 +80,7 @@ Clone the repository:
 
 bash
 Copy code
-git clone https://github.com/your-username/employee-management-system.git
+git clone https://github.com/ITKHUSHI/employee-management-system.git
 Install dependencies:
 
 Backend:
